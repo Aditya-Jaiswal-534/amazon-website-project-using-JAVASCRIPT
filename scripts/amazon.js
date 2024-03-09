@@ -1,3 +1,4 @@
+import {cart} from '../data/cart.js';
 const dispGrid = document.querySelector('.js-grid-cont');
 let Htmlstring='';
 products.forEach((value)=>{
@@ -20,7 +21,7 @@ products.forEach((value)=>{
     </div>
 
     <div class="product-price">
-      ${value.priceCents}
+      $${(value.priceCents/100).toFixed(2)}
     </div>
 
     <div class="product-quantity-container">
@@ -57,21 +58,22 @@ dispGrid.innerHTML=Htmlstring;
 const addB = document.querySelectorAll('.js-add-to');
 addB.forEach((button)=>{
     button.addEventListener('click',()=>{
-        const productId = button.dataset.productId;
+        const {productId} = button.dataset;
         let matchingItem;
+        let quantity = Number(document.querySelector(`.js-quantity-selector-${productId}`).value)
         cart.forEach((item)=>{
             if(productId === item.productId){
                     matchingItem = item;
             }
         });
         if(matchingItem){
-            matchingItem.quantity+=Number(document.querySelector(`.js-quantity-selector-${productId}`).value);
+            matchingItem.quantity+=quantity;
         }
         else{
 
             cart.push({
                 productId: productId,
-                quantity:Number(document.querySelector(`.js-quantity-selector-${productId}`).value)
+                quantity
 
             });
         }
