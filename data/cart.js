@@ -7,7 +7,14 @@ export let cart= JSON.parse(localStorage.getItem('cart'))||
 //     quantity:1
 // }
 [];
-
+export function updateCartQuantity(){
+    let totalQuantity =0;
+    cart.forEach((item)=>{
+     totalQuantity+=item.quantity;
+    });
+   return totalQuantity;
+   
+  };
 export function addToCart(productId){
     let matchingItem;
           let quantity = Number(document.querySelector(`.js-quantity-selector-${productId}`).value)
